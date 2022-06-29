@@ -2,6 +2,6 @@
 
 <template>
   <main>
-    <h1>This is a list of Deputees Page</h1>
+    <h1>This is a Term Of Use Page</h1>
   </main>
 </template>

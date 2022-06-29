@@ -2,6 +2,6 @@
 
 <template>
   <main>
-    <h1>This is a Deputy page</h1>
+    <h1>This is a Deputy Page</h1>
   </main>
 </template>

@@ -26,6 +26,11 @@ const router = createRouter({
       component: () => import("@/pages/AboutPage.vue"),
     },
     {
+      path: "/terms-of-use",
+      name: "terms-of-use-page",
+      component: () => import("@/pages/TermsOfUsePage.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "not-found-page",
       component: () => import("@/pages/NotFoundPage.vue"),
