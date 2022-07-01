@@ -5,20 +5,21 @@ const router = useRouter();
 
 <template>
   <main>
-    <n-page-header subtitle="Discover french deputees">
+    <n-page-header subtitle="Discover french representatives">
       <template #title> This is a Landing Page </template>
     </n-page-header>
 
     <n-divider />
 
     <section>
-      <n-space justify="space-around">
-        <span>
+      <div
+        class="flex items-center justify-around bg-stone-100 rounded-xl p-14"
+      >
+        <span class="w-[50%]">
           Ut lobortis mattis nisl sit amet viverra. Aenean congue tellus ut
           rhoncus viverra. Curabitur id eleifend risus. Donec placerat eros id
           nunc tincidunt efficitur. Maecenas ac arcu quis mi semper tincidunt in
-          et felis. Ut sed urna consequat, aliquam nulla ut, laoreet nunc.
-          Maecenas placerat dictum neque.
+          et felis.
         </span>
 
         <n-button
@@ -28,11 +29,13 @@ const router = useRouter();
         >
           Explore
         </n-button>
-      </n-space>
+      </div>
     </section>
     <n-divider />
 
     <section>
+      <n-h2>Main groups</n-h2>
+
       <n-space>
         <OrganizationCard v-for="i in 5" :key="i"> </OrganizationCard>
       </n-space>

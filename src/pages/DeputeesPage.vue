@@ -1,7 +1,0 @@
-<script setup lang="ts"></script>
-
-<template>
-  <main>
-    <h1>This is a list of Deputees Page</h1>
-  </main>
-</template>
