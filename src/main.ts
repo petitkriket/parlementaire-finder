@@ -1,9 +1,19 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from "vue";
+import naive from "naive-ui";
+import { VueQueryPlugin } from "vue-query";
+import "./assets/css/tailwind.css";
 
-const app = createApp(App)
+import App from "./App.vue";
+import router from "./router";
 
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.use(VueQueryPlugin);
+app.use(router);
+app.use(naive);
+
+const meta = document.createElement("meta");
+meta.name = "naive-ui-style";
+document.head.appendChild(meta);
+
+app.mount("#app");
