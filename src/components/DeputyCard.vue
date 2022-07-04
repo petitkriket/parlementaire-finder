@@ -1,35 +1,41 @@
 <script setup>
+import { toRefs } from "vue";
 // import type { Deputy } from "@/types";
 // const props = defineProps<Deputy>();
 
 const props = defineProps({
   id: {
+    type: Number,
+  },
+  fullName: {
     type: String,
-    default: "1",
+  },
+  organizationAcronym: {
+    type: String,
+  },
+  slug: {
+    type: String,
   },
 });
+
+const { id, fullName, organizationAcronym, slug } = toRefs(props);
 </script>
 
 <template>
-  <n-card title="A Deputy" size="small">
+  <n-card :title="fullName" size="small">
     <template #cover>
-      <div class="bg-neutral-200">
-        <router-link :to="{ name: 'deputy-page', params: { id: props.id } }">
+      <div class="bg-neutral-100 h-[200px]">
+        <router-link :to="{ name: 'deputy-page', params: { id } }">
           <img
-            src="https://dummyimage.com/200x200/f1f1f1/aaa"
-            class="object-cover h-[200px]"
+            :src="`https://www.nosdeputes.fr/depute/photo/${slug}/400`"
+            class="object-cover object-top h-[200px] transition-all duration-500 ease-in-out transform hover:scale-100 scale-105 grayscale"
           />
         </router-link>
       </div>
     </template>
 
-    <template #action>
-      <router-link
-        :to="{ name: 'deputy-page', params: { id: props.id } }"
-        class="no-underline text-inherit"
-      >
-        <n-button type="primary" quaternary>See</n-button>
-      </router-link>
-    </template>
+    <n-tag round>
+      {{ organizationAcronym }}
+    </n-tag>
   </n-card>
 </template>

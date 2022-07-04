@@ -13,7 +13,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "lodash.omitby": "^4.6.0",
+    "lodash.samplesize": "^4.2.0",
     "vue": "^3.2.37",
+    "vue-query": "^1.25.0",
     "vue-router": "^4.0.16"
   },
   "devDependencies": {

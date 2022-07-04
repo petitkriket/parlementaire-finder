@@ -23,12 +23,12 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "deputees-page",
+            name: "deputies-page",
           },
         },
-        { default: () => "Deputees" }
+        { default: () => "Deputies" }
       ),
-    key: "go-to-deputees-page",
+    key: "go-to-deputies-page",
   },
   {
     label: () =>

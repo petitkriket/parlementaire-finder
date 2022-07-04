@@ -10,12 +10,12 @@ const router = createRouter({
       component: LandingPage,
     },
     {
-      path: "/deputees",
-      name: "deputees-page",
-      component: () => import("@/pages/DeputeesPage/DeputeesPage.vue"),
+      path: "/deputies",
+      name: "deputies-page",
+      component: () => import("@/pages/DeputiesPage.vue"),
     },
     {
-      path: "/deputees/:id",
+      path: "/deputies/:id",
       name: "deputy-page",
       component: () => import("@/pages/DeputyPage.vue"),
       props: true,
