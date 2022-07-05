@@ -5,7 +5,6 @@ import axios from "axios";
  * See documentation at https://github.com/petitkriket/national-assembly-members-api
  **/
 
-const baseURL =
-  import.meta.env.VITE_NATIONAL_ASSEMBLY_API_URL || "http://localhost:8000/";
+const baseURL = import.meta.env.VITE_NATIONAL_ASSEMBLY_API_URL;
 
 export const nationalAssemblyAPI = axios.create({ baseURL });
