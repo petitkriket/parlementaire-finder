@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { h, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { RouterLink } from "vue-router";
 import type { MenuOption } from "naive-ui";
 
+const { t } = useI18n();
 const menuOptions: MenuOption[] = [
   {
     label: () =>
@@ -13,7 +15,7 @@ const menuOptions: MenuOption[] = [
           target: "_blank",
           rel: "noopenner noreferrer",
         },
-        "OpenData Source"
+        t("openData")
       ),
     key: "go-to-data-source",
   },
@@ -26,9 +28,9 @@ const menuOptions: MenuOption[] = [
             name: "terms-of-use-page",
           },
         },
-        { default: () => "Terms of Use" }
+        { default: () => t("ToS") }
       ),
-    key: "go-to-about-page",
+    key: "go-to-terms-of-use-page",
   },
 ];
 const activeKey = ref(null);
@@ -37,3 +39,18 @@ const activeKey = ref(null);
 <template>
   <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" />
 </template>
+
+<i18n>
+{
+  "en": {
+    "openData": "Open Data Source",
+    "ToS": "Terms of Use",
+    "about": "About",
+  },
+  "fr": {
+    "openData": "Données Open Data",
+    "ToS": "Conditions d'utilisation",
+    "about": "À propos",
+  }
+}
+</i18n>

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 import { useOrganizationsQuery } from "@/queries/organization.js";
 import sampleSize from "lodash.samplesize";
 
+const { t } = useI18n();
 const router = useRouter();
-const { isError, isLoading, isSuccess, data } = useOrganizationsQuery({
+
+const { isSuccess, data } = useOrganizationsQuery({
   active: true,
 });
 
@@ -17,8 +20,8 @@ const sample = computed(() =>
 
 <template>
   <main>
-    <n-page-header subtitle="Discover french representatives">
-      <template #title> This is a Landing Page </template>
+    <n-page-header :subtitle="t('subtitle')">
+      <template #title>{{ t("title") }}</template>
     </n-page-header>
 
     <n-divider />
@@ -27,10 +30,7 @@ const sample = computed(() =>
       class="flex items-center justify-around bg-stone-100 rounded-xl p-14"
     >
       <span class="w-1/2">
-        Ut lobortis mattis nisl sit amet viverra. Aenean congue tellus ut
-        rhoncus viverra. Curabitur id eleifend risus. Donec placerat eros id
-        nunc tincidunt efficitur. Maecenas ac arcu quis mi semper tincidunt in
-        et felis.
+        {{ t("catchPhrase") }}
       </span>
 
       <n-button
@@ -38,14 +38,14 @@ const sample = computed(() =>
         type="primary"
         @click="router.push({ name: 'deputies-page' })"
       >
-        Explore
+        {{ t("callToAction") }}
       </n-button>
     </section>
 
     <n-divider />
 
     <section>
-      <n-h2>By Group</n-h2>
+      <n-h2>{{ t("firstSectionTitle") }}</n-h2>
       <n-grid cols="1 400:3 800:5" :x-gap="8" :y-gap="8" v-if="isSuccess">
         <n-grid-item v-for="organization in sample" :key="organization.id">
           <OrganizationCard v-bind="organization" />
@@ -55,3 +55,22 @@ const sample = computed(() =>
     <n-divider />
   </main>
 </template>
+
+<i18n>
+{
+  "en": {
+    "title": "Home",
+    "subtitle": "Discover parliamentary data",
+    "callToAction": "Explore",
+    "catchPhrase": "Presentation of the National Assembly, the Bourbon Palace, its members (deputies), its functioning and its news: agenda, work in progress (amendments, reports, commissions, laws), texts and files (legislative or news).",
+    "firstSectionTitle": "Representatives by group",
+  },
+  "fr": {
+    "title": "Acceuil",
+    "subtitle": "Découvrir les données parlementaires",
+    "catchPhrase": "Presentation de l'Assemblee nationale, du palais Bourbon, de ses membres (deputes), de son fonctionnement et de son actualite : agenda, travaux en cours (amendements, rapports, commissions, lois), textes et dossiers (legislatifs ou d'actualite).",
+    "callToAction": "Explorer",
+    "firstSectionTitle": "Parlementaires par formation politique",
+  }
+}
+</i18n>
