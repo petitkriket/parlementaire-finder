@@ -16,10 +16,12 @@
     "lodash.omitby": "^4.6.0",
     "lodash.samplesize": "^4.2.0",
     "vue": "^3.2.37",
+    "vue-i18n": "9",
     "vue-query": "^1.25.0",
     "vue-router": "^4.0.16"
   },
   "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^3.4.0",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/jsdom": "^16.2.14",
     "@types/lodash.samplesize": "^4.2.7",

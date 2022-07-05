@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import { useDeputyQuery } from "@/queries/deputy.js";
 
 const props = defineProps({
@@ -6,6 +7,7 @@ const props = defineProps({
     type: Number,
   },
 });
+const { t } = useI18n();
 
 const { isSuccess, data: deputy } = useDeputyQuery(props.id);
 const hasHistory = () => window.history.length > 2;
@@ -31,7 +33,7 @@ const hasHistory = () => window.history.length > 2;
             </h1>
 
             <n-tabs type="line" size="large">
-              <n-tab-pane name="description" tab="Description">
+              <n-tab-pane name="description" :tab="t('firstTab')">
                 <div>
                   <p class="leading-relaxed mb-4">
                     Fam locavore kickstarter distillery. Mixtape chillwave
@@ -42,21 +44,23 @@ const hasHistory = () => window.history.length > 2;
                   </p>
 
                   <div class="flex border-t border-gray-200 py-2">
-                    <span class="text-gray-500">Circonscription</span>
+                    <span class="text-gray-500">{{ t("districtLabel") }}</span>
                     <span class="ml-auto text-gray-900">
                       {{ deputy.districtName }}
                     </span>
                   </div>
 
                   <div class="flex border-t border-gray-200 py-2">
-                    <span class="text-gray-500">Occupation</span>
+                    <span class="text-gray-500">{{
+                      t("occupationLabel")
+                    }}</span>
                     <span class="ml-auto text-gray-900">
                       {{ deputy.occupation }}
                     </span>
                   </div>
 
                   <div class="flex border-t border-b mb-6 border-gray-200 py-2">
-                    <span class="text-gray-500">Seat</span>
+                    <span class="text-gray-500">{{ t("seatLabel") }}</span>
                     <span class="ml-auto text-gray-900">
                       {{ deputy.nationalAssemblySeat }}
                     </span>
@@ -64,11 +68,13 @@ const hasHistory = () => window.history.length > 2;
                 </div>
               </n-tab-pane>
 
-              <n-tab-pane name="activity" tab="Activity">Votes</n-tab-pane>
+              <n-tab-pane name="activity" :tab="t('secondTab')"
+                >Votes</n-tab-pane
+              >
 
               <n-tab-pane
                 name="tweets"
-                tab="Tweets"
+                :tab="t('thirdTab')"
                 :disabled="!deputy.twitter"
               >
                 Tweets
@@ -86,3 +92,24 @@ const hasHistory = () => window.history.length > 2;
     </section>
   </main>
 </template>
+
+<i18n>
+{
+  "en": {
+    "firstTab": "Description",
+    "districtLabel": "District",
+    "occupationLabel": "Occupation",
+    "seatLabel": "Seat",
+    "secondTab": "Activity",
+    "thirdTab": "Tweets",
+  },
+  "fr": {
+    "firstTab": "Description",
+    "districtLabel": "Circonscription",
+    "occupationLabel": "Profession",
+    "seatLabel": "Siège",
+    "secondTab": "Activité",
+    "thirdTab": "Tweets",
+  },
+}
+</i18n>

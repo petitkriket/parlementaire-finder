@@ -1,9 +1,11 @@
 <script setup>
 import { ref, computed } from "vue";
+import { useI18n } from "vue-i18n";
 import useDepartments from "@/composables/useDepartments.js";
 import { useOrganizationsQuery } from "@/queries/organization.js";
 import { getBirthDate } from "@/helpers/deputy.js";
 
+const { t } = useI18n();
 const ageRange = ref([25, 70]);
 const staffCount = ref([0, 5]);
 const termsCount = ref([1, 3]);
@@ -37,17 +39,18 @@ const { isLoading: departmentsAreLoading, data } = useDepartments();
 
 const departmentsOptions = computed(() => {
   return data?.value?.departments.map(
-    ({ nom: label, code: value }) => ({ label, value } || [])
+    ({ nom: label, code: value }) =>
+      ({ label: `${label} (${value})`, value } || [])
   );
 });
 
 const genderOptions = [
   {
-    label: "Female",
+    label: t("femaleOptionLabel"),
     value: "F",
   },
   {
-    label: "Male",
+    label: t("maleOptionLabel"),
     value: "M",
   },
 ];
@@ -56,12 +59,13 @@ const genderOptions = [
 <template>
   <div>
     <div>
-      <n-h6>Department</n-h6>
+      <n-h6>{{ t("departmentFilterLabel") }}</n-h6>
       <n-select
         :value="$route.query.departmentNumber"
         :loading="departmentsAreLoading"
         :options="departmentsOptions"
         multiple
+        filterable
         clearable
         @update:value="change('departmentNumber', $event)"
       />
@@ -70,7 +74,7 @@ const genderOptions = [
     <n-divider />
 
     <div>
-      <n-h6>Organization</n-h6>
+      <n-h6>{{ t("politicalPartyFilterLabel") }}</n-h6>
       <n-select
         :value="$route.query.organizationAcronym"
         :loading="organizationsAreLoading"
@@ -84,7 +88,7 @@ const genderOptions = [
     <n-divider />
 
     <div>
-      <n-h6>Gender</n-h6>
+      <n-h6>{{ t("genderFilterLabel") }}</n-h6>
       <n-select
         :value="$route.query.gender"
         :options="genderOptions"
@@ -97,7 +101,7 @@ const genderOptions = [
     <n-divider />
 
     <div>
-      <n-h6>Age</n-h6>
+      <n-h6>{{ t("ageFilterLabel") }}</n-h6>
       <n-slider
         v-model:value="ageRange"
         :step="1"
@@ -112,7 +116,7 @@ const genderOptions = [
     <n-divider />
 
     <div>
-      <n-h6>Staff Count</n-h6>
+      <n-h6>{{ t("staffCountFilterLabel") }}</n-h6>
       <n-slider
         v-model:value="staffCount"
         :step="1"
@@ -127,7 +131,7 @@ const genderOptions = [
     <n-divider />
 
     <div>
-      <n-h6>Terms Count</n-h6>
+      <n-h6>{{ t("termsCountFilterLabel") }}</n-h6>
       <n-slider
         v-model:value="termsCount"
         :step="1"
@@ -140,3 +144,29 @@ const genderOptions = [
     </div>
   </div>
 </template>
+
+<i18n>
+{
+  "en": {
+    "femaleOptionLabel": "Female",
+    "maleOptionLabel": "Male",
+    "departmentFilterLabel": "Department",
+    "politicalPartyFilterLabel": "Political party",
+    "genderFilterLabel": "Genre",
+    "ageFilterLabel": "Age",
+    "staffCountFilterLabel": "Staff count",
+    "termsCountFilterLabel": "Terms count",
+  },
+  "fr": {
+    "femaleOptionLabel": "Femme",
+    "maleOptionLabel": "Homme",
+    "departmentFilterLabel": "Département",
+    "politicalPartyFilterLabel": "Parti politique",
+    "genderFilterLabel": "Genre",
+    "ageFilterLabel": "Âge",
+    "staffCountFilterLabel": "Nombre de collaborateurs",
+    "termsCountFilterLabel": "Nombre de mandats",
+  },
+
+}
+</i18n>

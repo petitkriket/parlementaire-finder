@@ -1,10 +1,12 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import _omitBy from "lodash.omitby";
 
 import { useDeputiesQuery } from "@/queries/deputy.js";
 
+const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const searchValue = ref(route.query.q);
@@ -37,8 +39,8 @@ const hasActiveFilters = computed(() => Object.keys(route.query).length > 0);
 
 <template>
   <main>
-    <n-page-header subtitle="National assembly representatives">
-      <template #title>Deputies</template>
+    <n-page-header :subtitle="t('subtitle')">
+      <template #title>{{ t("title") }}</template>
     </n-page-header>
     <n-divider />
 
@@ -46,7 +48,7 @@ const hasActiveFilters = computed(() => Object.keys(route.query).length > 0);
       <n-input
         v-model:value="searchValue"
         :loading="isLoading"
-        placeholder="Filter by name or party"
+        :placeholder="t('placeholder')"
         size="large"
         style="min-width: 50%"
         round
@@ -55,11 +57,15 @@ const hasActiveFilters = computed(() => Object.keys(route.query).length > 0);
         @change="onSearch"
         @blur="onSearch($event.target.value)"
       />
-      <n-button type="primary" size="large">Search</n-button>
-      <n-button size="large" @click="toggleFilterDrawer">More filters</n-button>
+      <n-button size="large">
+        {{ t("submitButtonLabel") }}
+      </n-button>
+      <n-button size="large" type="primary" @click="toggleFilterDrawer">
+        {{ t("filterButtonLabel") }}
+      </n-button>
       <n-collapse-transition :show="hasActiveFilters">
-        <n-button type="tertiary" size="large" @click="clearFilters">
-          Clear
+        <n-button size="large" tertiary @click="clearFilters">
+          {{ t("clearButtonLabel") }}
         </n-button>
       </n-collapse-transition>
     </n-input-group>
@@ -84,7 +90,7 @@ const hasActiveFilters = computed(() => Object.keys(route.query).length > 0);
       </template>
     </n-grid>
 
-    <n-space v-if="isError">Something is off..</n-space>
+    <n-space v-if="isError">{{ t("error") }}</n-space>
 
     <n-divider />
 
@@ -97,9 +103,43 @@ const hasActiveFilters = computed(() => Object.keys(route.query).length > 0);
     />
 
     <n-drawer v-model:show="isFiltersDrawerOpen" :width="300" placement="left">
-      <n-drawer-content title="Filters">
+      <n-drawer-content :title="t('drawerTitle')">
         <DeputiesFilters @change="onFilterChange" @reset="clearFilters" />
+        <template #footer>
+          <n-spin v-if="isLoading" />
+          <n-h6 v-else-if="isSuccess">
+            {{ t("drawerBottomLine", { count: data.info.count }) }}
+          </n-h6>
+        </template>
       </n-drawer-content>
     </n-drawer>
   </main>
 </template>
+
+<i18n>
+{
+  "en": {
+    "title": "Deputies",
+    "subtitle": "National assembly representatives",
+    "placeholder": "i.e: Jean-Paul ou LR",
+    "submitButtonLabel": "Search",
+    "filterButtonLabel": "+ More filters",
+    "clearButtonLabel": "Clear filters",
+    "error": "An error occurred while loading deputies",
+    "drawerTitle": "Advanced filters",
+    "drawerBottomLine": "No results | One result | {count} resuts",
+
+  },
+  "fr": {
+    "title": "Parlementaires",
+    "subtitle": "Membres de l'Assemblée nationale",
+    "placeholder": "i.e: Jean-Paul ou LR",
+    "submitButtonLabel": "Rechercher",
+    "filterButtonLabel": "+ Plus de filtres",
+    "clearButtonLabel": "Effacer les filtres",
+    "error": "Une erreur est survenue lors du chargement des parlementaires",
+    "drawerTitle": "Filtres avancés",
+    "drawerBottomLine": "Aucun résultat | Un résultat | {count} résultats",
+  },
+}
+</i18n>

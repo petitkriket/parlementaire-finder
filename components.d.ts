@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     NSkeleton: typeof import('naive-ui')['NSkeleton']
     NSlider: typeof import('naive-ui')['NSlider']
     NSpace: typeof import('naive-ui')['NSpace']
+    NSpin: typeof import('naive-ui')['NSpin']
     NTabPane: typeof import('naive-ui')['NTabPane']
     NTabs: typeof import('naive-ui')['NTabs']
     NTag: typeof import('naive-ui')['NTag']

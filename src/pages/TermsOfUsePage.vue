@@ -1,7 +1,23 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+</script>
 
 <template>
   <main>
-    <h1>This is a Term Of Use Page</h1>
+    <n-page-header>
+      <template #title>{{ t("title") }}</template>
+    </n-page-header>
   </main>
 </template>
+
+<i18n>
+{
+  "en": {
+    "title": "Terms Of Use",
+  },
+  "fr": {
+    "title": "Conditions d'utilisation",
+  },
+}
+</i18n>

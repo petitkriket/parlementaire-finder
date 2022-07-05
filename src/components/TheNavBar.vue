@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { h, ref } from "vue";
 import { RouterLink } from "vue-router";
+import { useI18n } from "vue-i18n";
 import type { MenuOption } from "naive-ui";
 
+const { t } = useI18n();
 const menuOptions: MenuOption[] = [
   {
     label: () =>
@@ -13,7 +15,7 @@ const menuOptions: MenuOption[] = [
             name: "landing-page",
           },
         },
-        { default: () => "Home" }
+        { default: () => t("home") }
       ),
     key: "go-to-landing-page",
   },
@@ -26,7 +28,7 @@ const menuOptions: MenuOption[] = [
             name: "deputies-page",
           },
         },
-        { default: () => "Deputies" }
+        { default: () => t("deputies") }
       ),
     key: "go-to-deputies-page",
   },
@@ -39,22 +41,9 @@ const menuOptions: MenuOption[] = [
             name: "about-page",
           },
         },
-        { default: () => "About" }
+        { default: () => t("about") }
       ),
     key: "go-to-about-page",
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: "not-found-page",
-          },
-        },
-        { default: () => "404" }
-      ),
-    key: "go-to-not-found-page",
   },
 ];
 const activeKey = ref(null);
@@ -63,3 +52,18 @@ const activeKey = ref(null);
 <template>
   <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" />
 </template>
+
+<i18n>
+{
+  "en": {
+    "home": "Home",
+    "deputies": "Deputies",
+    "about": "About",
+  },
+  "fr": {
+    "home": "Accueil",
+    "deputies": "Parlementaires",
+    "about": "À propos",
+  }
+}
+</i18n>
