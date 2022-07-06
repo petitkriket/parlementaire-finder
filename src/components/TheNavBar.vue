@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { h, ref } from "vue";
+import { h } from "vue";
 import { RouterLink } from "vue-router";
 import { useI18n } from "vue-i18n";
 import type { MenuOption } from "naive-ui";
-
 const { t } = useI18n();
-const menuOptions: MenuOption[] = [
+const { availableLocales } = useI18n({ useScope: "global" });
+
+const mainMenu: MenuOption[] = [
   {
     label: () =>
       h(
@@ -17,7 +18,7 @@ const menuOptions: MenuOption[] = [
         },
         { default: () => t("home") }
       ),
-    key: "go-to-landing-page",
+    key: "landing-page",
   },
   {
     label: () =>
@@ -30,7 +31,7 @@ const menuOptions: MenuOption[] = [
         },
         { default: () => t("deputies") }
       ),
-    key: "go-to-deputies-page",
+    key: "deputies-page",
   },
   {
     label: () =>
@@ -43,14 +44,38 @@ const menuOptions: MenuOption[] = [
         },
         { default: () => t("about") }
       ),
-    key: "go-to-about-page",
+    key: "about-page",
   },
 ];
-const activeKey = ref(null);
+
+const localeMenu: MenuOption[] = [
+  {
+    label: "Langue",
+    key: "locale",
+    children: availableLocales.map((locale) => ({
+      label: t(locale),
+      key: locale,
+    })),
+  },
+];
 </script>
 
 <template>
-  <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" />
+  <div class="flex flex-row justify-between items-center">
+    <span></span>
+
+    <div>
+      <n-menu :value="$route.name" mode="horizontal" :options="mainMenu" />
+
+      <span class="mx-8" />
+
+      <n-menu
+        mode="horizontal"
+        :options="localeMenu"
+        @update:value="$i18n.locale = $event"
+      />
+    </div>
+  </div>
 </template>
 
 <i18n>
@@ -59,6 +84,8 @@ const activeKey = ref(null);
     "home": "Home",
     "deputies": "Deputies",
     "about": "About",
+    "fr": "Français",
+    "en": "English",
   },
   "fr": {
     "home": "Accueil",

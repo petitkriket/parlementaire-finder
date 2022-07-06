@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
+<script setup>
+import useUIKit from "@/composables/useUIKit.js";
+const { uiKitSettings } = useUIKit();
+</script>
 
 <template>
-  <div style="height: 100vh; position: relative">
+  <n-config-provider v-bind="uiKitSettings">
     <n-layout position="absolute">
       <n-layout-header bordered :style="{ padding: '8px 40px' }">
         <TheNavBar />
@@ -15,5 +18,5 @@
         <TheFooter />
       </n-layout-footer>
     </n-layout>
-  </div>
+  </n-config-provider>
 </template>
