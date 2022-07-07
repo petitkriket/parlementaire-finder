@@ -4,7 +4,7 @@ import { useDeputyQuery } from "@/queries/deputy.js";
 
 const props = defineProps({
   id: {
-    type: Number,
+    type: String,
   },
 });
 const { t } = useI18n();
@@ -24,7 +24,7 @@ const hasHistory = () => window.history.length > 2;
     <section class="text-gray-600 body-font overflow-hidden">
       <div class="container px-5 py-24" v-if="isSuccess">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
-          <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+          <div class="lg:w-1/2 w-full lg:pr-10 lg:pb-6 mb-6 lg:mb-0">
             <h2 class="text-sm title-font text-gray-500 tracking-widest">
               {{ deputy.organizationName }}
             </h2>
@@ -35,13 +35,7 @@ const hasHistory = () => window.history.length > 2;
             <n-tabs type="line" size="large">
               <n-tab-pane name="description" :tab="t('firstTab')">
                 <div>
-                  <p class="leading-relaxed mb-4">
-                    Fam locavore kickstarter distillery. Mixtape chillwave
-                    tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam
-                    inxigo juiceramps cornhole raw denim forage brooklyn.
-                    Everyday carry +1 seitan poutine tumeric. Gastropub blue
-                    bottle austin listicle pour-over, neutra jean.
-                  </p>
+                  <p class="leading-relaxed mb-4"></p>
 
                   <div class="flex border-t border-gray-200 py-2">
                     <span class="text-gray-500">{{ t("districtLabel") }}</span>
@@ -68,16 +62,17 @@ const hasHistory = () => window.history.length > 2;
                 </div>
               </n-tab-pane>
 
-              <n-tab-pane name="activity" :tab="t('secondTab')"
-                >Votes</n-tab-pane
-              >
-
               <n-tab-pane
                 name="tweets"
                 :tab="t('thirdTab')"
-                :disabled="!deputy.twitter"
+                display-directive="show"
+                v-if="deputy.twitter"
               >
-                Tweets
+                <BaseTwitterTimeline :username="deputy.twitter" />
+              </n-tab-pane>
+
+              <n-tab-pane name="activity" :tab="t('secondTab')" disabled>
+                Charting !
               </n-tab-pane>
             </n-tabs>
           </div>
@@ -100,7 +95,7 @@ const hasHistory = () => window.history.length > 2;
     "districtLabel": "District",
     "occupationLabel": "Occupation",
     "seatLabel": "Seat",
-    "secondTab": "Activity",
+    "secondTab": "Parliamentary Activity",
     "thirdTab": "Tweets",
   },
   "fr": {
@@ -108,7 +103,7 @@ const hasHistory = () => window.history.length > 2;
     "districtLabel": "Circonscription",
     "occupationLabel": "Profession",
     "seatLabel": "Siège",
-    "secondTab": "Activité",
+    "secondTab": "Activité parlementaire",
     "thirdTab": "Tweets",
   },
 }

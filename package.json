@@ -15,6 +15,7 @@
   "dependencies": {
     "lodash.omitby": "^4.6.0",
     "lodash.samplesize": "^4.2.0",
+    "twitter-widgets": "^2.0.0",
     "vue": "^3.2.37",
     "vue-i18n": "9",
     "vue-query": "^1.25.0",
