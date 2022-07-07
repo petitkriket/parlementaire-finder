@@ -1,6 +1,6 @@
 <script setup>
-import useUIKit from "@/composables/useUIKit.js";
-const { uiKitSettings } = useUIKit();
+import useNaiveUI from "@/composables/useNaiveUI.js";
+const { uiKitSettings } = useNaiveUI();
 </script>
 
 <template>
