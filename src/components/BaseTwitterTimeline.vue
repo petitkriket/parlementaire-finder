@@ -8,11 +8,13 @@ const props = defineProps({
   },
 });
 
-onMounted(() => {
-  nextTick(() => {
-    TwitterWidgetsLoader.load();
-  });
-});
+const addTwitterWidget = () => {
+  TwitterWidgetsLoader.load();
+  const twttr = window.twttr;
+  twttr.widgets.load();
+};
+
+onMounted(() => nextTick(() => addTwitterWidget()));
 </script>
 
 <template>
