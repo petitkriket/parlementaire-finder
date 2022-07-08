@@ -19,7 +19,7 @@ const hasHistory = () => window.history.length > 2;
       @click="hasHistory() ? $router.go(-1) : $router.push('/')"
       class="my-5 btn btn-outline-success"
     >
-      &laquo; Back
+      &laquo; {{ t("backButton") }}
     </n-button>
     <section class="text-gray-600 body-font overflow-hidden">
       <div class="container px-5 py-24" v-if="isSuccess">
@@ -91,6 +91,7 @@ const hasHistory = () => window.history.length > 2;
 <i18n>
 {
   "en": {
+    "backButton": "Back",
     "firstTab": "Description",
     "districtLabel": "District",
     "occupationLabel": "Occupation",
@@ -99,6 +100,7 @@ const hasHistory = () => window.history.length > 2;
     "thirdTab": "Tweets",
   },
   "fr": {
+    "backButton": "Retour",
     "firstTab": "Description",
     "districtLabel": "Circonscription",
     "occupationLabel": "Profession",
