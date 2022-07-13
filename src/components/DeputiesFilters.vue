@@ -51,7 +51,7 @@ const genderOptions = [
   },
   {
     label: t("maleOptionLabel"),
-    value: "M",
+    value: "H",
   },
 ];
 </script>
@@ -61,7 +61,11 @@ const genderOptions = [
     <div>
       <n-h6>{{ t("departmentFilterLabel") }}</n-h6>
       <n-select
-        :value="$route.query.departmentNumber"
+        :value="
+          typeof $route.query.departmentNumber === 'string'
+            ? [$route.query.departmentNumber]
+            : $route.query.departmentNumber
+        "
         :loading="departmentsAreLoading"
         :options="departmentsOptions"
         multiple
@@ -76,7 +80,11 @@ const genderOptions = [
     <div>
       <n-h6>{{ t("politicalPartyFilterLabel") }}</n-h6>
       <n-select
-        :value="$route.query.organizationAcronym"
+        :value="
+          typeof $route.query.organizationAcronym === 'string'
+            ? [$route.query.organizationAcronym]
+            : $route.query.organizationAcronym
+        "
         :loading="organizationsAreLoading"
         :options="organizationsOptions"
         multiple
@@ -90,7 +98,11 @@ const genderOptions = [
     <div>
       <n-h6>{{ t("genderFilterLabel") }}</n-h6>
       <n-select
-        :value="$route.query.gender"
+        :value="
+          typeof $route.query.gender === 'string'
+            ? [$route.query.gender]
+            : $route.query.gender
+        "
         :options="genderOptions"
         multiple
         clearable
@@ -115,7 +127,7 @@ const genderOptions = [
 
     <n-divider />
 
-    <div>
+    <div v-show="false">
       <n-h6>{{ t("staffCountFilterLabel") }}</n-h6>
       <n-slider
         v-model:value="staffCount"
@@ -130,7 +142,7 @@ const genderOptions = [
 
     <n-divider />
 
-    <div>
+    <div v-show="false">
       <n-h6>{{ t("termsCountFilterLabel") }}</n-h6>
       <n-slider
         v-model:value="termsCount"
