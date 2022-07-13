@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseSkeletonCard: typeof import('./src/components/BaseSkeletonCard.vue')['default']
     BaseTwitterTimeline: typeof import('./src/components/BaseTwitterTimeline.vue')['default']
     DeputiesFilters: typeof import('./src/components/DeputiesFilters.vue')['default']
     DeputyCard: typeof import('./src/components/DeputyCard.vue')['default']
