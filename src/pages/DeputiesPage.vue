@@ -75,12 +75,7 @@ const hasActiveFilters = computed(() => Object.keys(route.query).length > 0);
     <n-grid cols="1 400:3 800:6" :x-gap="8" :y-gap="8">
       <template v-if="isLoading">
         <n-grid-item v-for="i in 25" :key="i">
-          <n-card>
-            <template #header>
-              <n-skeleton text width="60%" />
-            </template>
-            <n-skeleton text :repeat="6" />
-          </n-card>
+          <BaseSkeletonCard />
         </n-grid-item>
       </template>
       <template v-if="isSuccess">

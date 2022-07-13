@@ -9,7 +9,7 @@ import sampleSize from "lodash.samplesize";
 const { t } = useI18n();
 const router = useRouter();
 
-const { isSuccess, data } = useOrganizationsQuery({
+const { isLoading, isSuccess, data } = useOrganizationsQuery({
   active: true,
 });
 
@@ -46,10 +46,18 @@ const sample = computed(() =>
 
     <section>
       <n-h2>{{ t("firstSectionTitle") }}</n-h2>
-      <n-grid cols="1 400:3 800:5" :x-gap="8" :y-gap="8" v-if="isSuccess">
-        <n-grid-item v-for="organization in sample" :key="organization.id">
-          <OrganizationCard v-bind="organization" />
-        </n-grid-item>
+      <n-grid cols="1 400:3 800:5" :x-gap="8" :y-gap="8">
+        <template v-if="isLoading">
+          <n-grid-item v-for="i in 5" :key="i">
+            <BaseSkeletonCard />
+          </n-grid-item>
+        </template>
+
+        <template v-if="isSuccess">
+          <n-grid-item v-for="organization in sample" :key="organization.id">
+            <OrganizationCard v-bind="organization" />
+          </n-grid-item>
+        </template>
       </n-grid>
     </section>
     <n-divider />
